@@ -1,5 +1,6 @@
 <?php
-class AssetsController extends AppController{
+class AssetsController extends AppController{	
+
 	public function index(){
 		$this->set('assets', $this->Asset->find('all') );
 	}
@@ -45,8 +46,13 @@ class AssetsController extends AppController{
 		}
 		//Get all types list
 		$this->loadModel('Type');		
-		$d['types'] = $this->Type->find('list');
-		$d['asset'] = $this->Asset->read();
+		$d['types']      = $this->Type->find('list');
+		$childAssets  = $this->Asset->ChildAsset->find('list',array('fields'=>array('id','name'),'conditions'=>array('id !='=>$id)  ));
+        $this->set(compact('childAssets'));
+        $parentAssets  = $this->Asset->ParentAsset->find('list',array('fields'=>array('id','name'),'conditions'=>array('id !='=>$id)  ));
+        $this->set(compact('parentAssets'));
+		//$d['assets'] = $this->Asset->find('list', array('fields'=>'id') );
+		//$d['parents'] = $this->getParentsList();
 		$this->set($d);
 	}
 
@@ -54,4 +60,15 @@ class AssetsController extends AppController{
 		$this->Asset->id = $id;
 		$this->set('asset', $this->Asset->read() );
 	}
+
+	public function getParentsList(){
+		$parents = $this->Asset->read();
+		$list = array();
+		foreach($parents['ParentAsset'] as $parent){
+			array_push($list, $parent['name']);
+		}
+		return $list;
+	}
+
+	
 }
