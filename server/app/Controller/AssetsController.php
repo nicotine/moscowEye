@@ -2,6 +2,13 @@
 class AssetsController extends AppController{	
 
 	public function index(){
+		$this->loadModel('Step');
+		$d['assets'] = $this->Asset->find('all');
+		$d['steps'] = $this->Step->find('list');
+		$this->set($d);
+	}
+
+	public function admin_index(){
 		$this->set('assets', $this->Asset->find('all') );
 	}
 

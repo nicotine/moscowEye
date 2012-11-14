@@ -9,7 +9,6 @@
   </head>
   <body>
 
-    <?php echo $this->element('topbar');?>
     <div class="container">
       <?php echo $this->Session->flash(); ?>
       <?php echo $this->fetch('content'); ?>
