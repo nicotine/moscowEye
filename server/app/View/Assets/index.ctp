@@ -3,7 +3,7 @@
 echo $this->Html->link('Add Asset', array('controller'=>'assets',
 										'action'=>'add') );
 ?>
-<table>
+<table class="table table-striped table-hover">
 	<tr>
 		<th>Id</th>
 		<th>Name</th>
@@ -33,14 +33,16 @@ echo $this->Html->link('Add Asset', array('controller'=>'assets',
   				endforeach;
   			?>
   		</td>
-  		<td> <?php echo $this->Html->link('Edit', array('action'=>'edit', $asset['Asset']['id'] ) ) ?> 
-  			<?php 
+  		<td> <button type="button" class="btn"><?php echo $this->Html->link('Edit', array('action'=>'edit', $asset['Asset']['id'] ) ) ?> </button>
+  			<button class="btn">
+        <?php 
   			echo $this->Form->postLink(
   				'Delete',
   			     array('action'=>'delete', $asset['Asset']['id'] ),
   			     array('confirm'=>'Are you sure?') 
   			     );
   			?>
+        </button>
   		</td>
   		<td> <?php echo $asset['Asset']['created']; ?> </td>
 	</tr>

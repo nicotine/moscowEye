@@ -9,11 +9,11 @@ class AssetsController extends AppController{
 		if($this->request->is('post') ){
 			$this->Asset->create();
 			if($this->Asset->save($this->request->data) ){				
-				$this->Session->setFlash('Asset successfully added.');
+				$this->Session->setFlash('Asset successfully added.', 'notif', array('type'=>'success'));
 				$this->redirect(array('action'=>'index') );
 			} 
 			else {
-				$this->Session->setFlash('Sorry, unable to add asset.');
+				$this->Session->setFlash('Sorry, unable to add asset.', 'notif', array('type'=>'error'));
 			}			
 		}
 		//Get all types list
@@ -27,7 +27,7 @@ class AssetsController extends AppController{
 			throw new MethodNotAllowException();
 		}
 		if ($this->Asset->delete($id) ){
-			$this->Session->setFlash('The asset with id:'.$id.' has been deleted.');
+			$this->Session->setFlash('The asset with id:'.$id.' has been deleted.', 'notif', array('type'=>'success') );
 			$this->redirect(array('action'=>'index'));
 		}
 	}
@@ -38,10 +38,10 @@ class AssetsController extends AppController{
 			$this->request->data = $this->Asset->read();
 		} else {
 			if($this->Asset->save($this->request->data) ){
-				$this->Session->setFlash('Asset updated.');
+				$this->Session->setFlash('Asset updated.', 'notif', array('type'=>'success') );
 				$this->redirect(array('action'=>'index') );
 			} else {
-				$this->Session->setFlash('Sorry, unable to update asset.');
+				$this->Session->setFlash('Sorry, unable to update asset.', 'notif', array('type'=>'error') );
 			}
 		}
 		//Get all types list
